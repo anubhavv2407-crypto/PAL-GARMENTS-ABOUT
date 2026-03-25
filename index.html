@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Legacy | Pal Garments Gonda</title>
+    <!-- Google Fonts -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+        :root {
+            --navy: #0F1A2F;
+            --navy-mid: #162642;
+            --yellow: #FFCC00;
+            --yellow-hover: #F2C200;
+            --white: #FFFFFF;
+            --off-white: #FBFBFB;
+            --yellow-soft: #FFF9E6;
+            --text-dark: #111111;
+            --text-muted: #777777;
+            --border: #F0F0F0;
+            --transition-premium: 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            --transition-smooth: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Basic Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background: var(--white); 
+            color: var(--text-dark); 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Global Scroll Progress --- */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 6px;
+            background: var(--yellow); z-index: 9999;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, .impact-text { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; line-height: 0.9; }
+        .italic-serif { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; text-transform: lowercase; }
+
+        section { padding: 180px 5%; position: relative; }
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        /* --- ADVANCED REVEAL ANIMATIONS --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(80px) scale(0.95); 
+            transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform, opacity;
+        }
+        .reveal.in-view { opacity: 1; transform: translateY(0) scale(1); }
+        .stagger-1 { transition-delay: 0.15s; }
+        .stagger-2 { transition-delay: 0.3s; }
+        .stagger-3 { transition-delay: 0.45s; }
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100px;
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 9000; transition: 0.4s var(--transition-smooth);
+        }
+        nav.scrolled { height: 75px; box-shadow: 0 15px 45px rgba(0,0,0,0.08); }
+        .nav-logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .nav-logo-img { height: 75px; width: auto; transition: 0.4s; object-fit: contain; }
+        nav.scrolled .nav-logo-img { height: 55px; }
+        .nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: var(--navy); letter-spacing: 0.05em; transition: 0.4s; }
+        nav.scrolled .nav-logo-text { font-size: 26px; }
+
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { text-decoration: none; color: var(--navy); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; transition: 0.3s; }
+        .nav-links a:hover { color: var(--yellow); }
+
+        .btn-premium-nav {
+            background: var(--navy); color: var(--white);
+            padding: 13px 28px; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.2em; text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-premium-nav:hover { background: var(--yellow); color: var(--navy); transform: translateY(-2px); }
+
+        /* --- Cinematic Hero --- */
+        .about-hero {
+            height: 90vh; 
+            background: linear-gradient(rgba(15, 26, 47, 0.82), rgba(15, 26, 47, 0.82)), url('https://i.postimg.cc/qRmhH6Cm/image.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            color: var(--white); display: flex; align-items: center; justify-content: center;
+            text-align: center; overflow: hidden;
+        }
+        .hero-title { font-size: clamp(80px, 18vw, 280px); color: var(--yellow); line-height: 0.8; filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5)); }
+        .hero-subtitle { font-size: clamp(18px, 2.5vw, 36px); font-family: 'Playfair Display', serif; font-style: italic; opacity: 0.9; margin-top: 20px; }
+
+        /* --- Story Intro --- */
+        .story-section { background: var(--white); border-bottom: 1px solid var(--border); }
+        .story-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 120px; align-items: center; }
+        .story-header h2 { font-size: clamp(50px, 8vw, 130px); color: var(--navy); margin-bottom: 40px; }
+        .story-text p { font-size: 22px; line-height: 2; color: var(--text-muted); font-weight: 300; margin-bottom: 40px; }
+        .story-accent { border-left: 5px solid var(--yellow); padding-left: 40px; font-size: 28px; color: var(--navy); font-weight: 500; font-family: 'Outfit', sans-serif; font-style: italic; }
+
+        /* --- Tri-Model Edge: HYPER REVEAL --- */
+        .pillars-section { background: var(--off-white); }
+        .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 100px; }
+        .pillar-card { 
+            background: var(--white); padding: 80px 50px; 
+            border: 1px solid var(--border);
+            transition: 0.8s var(--transition-premium);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 480px;
+        }
+        .pillar-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 0;
+            background: var(--navy); transition: 0.6s var(--transition-premium); z-index: -1;
+        }
+        .pillar-card:hover { transform: translateY(-25px); border-color: var(--navy); box-shadow: 0 40px 80px rgba(15, 26, 47, 0.15); }
+        .pillar-card:hover::after { height: 100%; }
+        .pillar-card:hover h3 { color: var(--yellow); transform: scale(1.05); }
+        .pillar-card:hover p { color: rgba(255,255,255,0.7); }
+        
+        .pillar-card h3 { font-size: clamp(40px, 4vw, 55px); color: var(--navy); margin-bottom: 30px; transition: 0.5s; transform-origin: left; }
+        .pillar-card p { font-size: 18px; color: var(--text-muted); line-height: 1.8; transition: 0.5s; }
+        .pillar-line { width: 50px; height: 4px; background: var(--yellow); margin-top: 40px; transition: 0.6s var(--transition-premium); }
+        .pillar-card:hover .pillar-line { width: 100%; }
+
+        /* --- Bento Grid: BUILT FOR GENERATIONS --- */
+        .audience-bento { background: var(--white); }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; margin-top: 100px; }
+        .bento-item { background: var(--off-white); padding: 60px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; transition: 0.6s; position: relative; overflow: hidden; }
+        
+        .bento-1 { grid-column: span 8; grid-row: span 2; background: var(--navy); color: var(--white); border: none; }
+        .school-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+        .school-badge { border: 1px solid rgba(255,255,255,0.15); padding: 12px 28px; font-family: 'Bebas Neue', sans-serif; color: var(--white); letter-spacing: 0.1em; font-size: 18px; transition: 0.3s; }
+        .school-badge:hover { background: var(--white); color: var(--navy); }
+        .school-badge.highlight { background: var(--yellow); color: var(--navy); border-color: var(--yellow); font-weight: 700; box-shadow: 0 10px 20px rgba(255, 204, 0, 0.3); }
+        
+        .bento-2 { grid-column: span 4; grid-row: span 2; background: var(--yellow-soft); }
+        .bento-3 { grid-column: span 5; grid-row: span 2; }
+        .bento-4 { grid-column: span 7; grid-row: span 2; background: var(--off-white); border-bottom: 8px solid var(--yellow); }
+
+        .bento-item h4 { font-size: 45px; margin-bottom: 25px; line-height: 1; color: inherit; }
+        .bento-item p { font-size: 18px; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
+        .bento-1 p { color: rgba(255,255,255,0.7); }
+        .bento-item:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.06); border-color: var(--yellow); }
+
+        /* --- KINETIC LEGACY SECTION --- */
+        .kinetic-legacy { 
+            background: var(--navy); padding: 250px 5%; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; position: relative; overflow: hidden; 
+        }
+        .marquee-bg { 
+            position: absolute; top: 50%; left: 0; transform: translateY(-50%);
+            display: flex; gap: 60px; font-family: 'Bebas Neue', sans-serif; font-size: 30vw;
+            color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.03);
+            white-space: nowrap; pointer-events: none; z-index: 0;
+            animation: marquee-infinite 25s linear infinite;
+        }
+        @keyframes marquee-infinite { 0% { transform: translate(0, -50%); } 100% { transform: translate(-50%, -50%); } }
+
+        .proud-label { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(30px, 6vw, 60px); color: var(--white); opacity: 0.6; margin-bottom: -15px; position: relative; z-index: 2; }
+        .kinetic-legacy h2 { font-size: clamp(80px, 16vw, 260px); color: var(--yellow); position: relative; z-index: 2; line-height: 0.8; margin-bottom: 40px; }
+        .kinetic-legacy p { max-width: 850px; color: rgba(255,255,255,0.8); font-weight: 300; font-size: 22px; line-height: 2.2; position: relative; z-index: 2; margin: 0 auto; }
+
+        /* --- Split Mission Section --- */
+        .mission-vision { display: flex; flex-wrap: wrap; background: var(--off-white); }
+        .mv-box { flex: 1; padding: 160px 10%; min-width: 350px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .mv-box.mission { background: var(--navy); color: var(--white); }
+        .mv-box.vision { background: var(--yellow); color: var(--navy); }
+        .mv-box h3 { font-size: clamp(60px, 8vw, 110px); margin-bottom: 40px; }
+        .mv-box p { font-size: 24px; line-height: 1.8; font-weight: 300; opacity: 0.95; }
+
+        /* --- HUGE CONTACT (ENQUIRE BULK) --- */
+        .huge-contact { text-align: center; padding: 200px 5%; background: var(--white); overflow: hidden; }
+        .huge-phone { 
+            font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 14vw, 280px); 
+            color: var(--navy); text-decoration: none; line-height: 0.8; 
+            transition: 0.8s var(--transition-smooth); display: block; margin: 60px 0; white-space: nowrap; 
+        }
+        .huge-phone:hover { color: var(--yellow); transform: scale(1.06); letter-spacing: 0.02em; }
+        .btn-xl { 
+            padding: 22px 100px; font-family: 'Bebas Neue', sans-serif; font-size: 26px; 
+            text-decoration: none; transition: 0.5s var(--transition-smooth); 
+            border: 2px solid transparent; display: inline-block;
+        }
+        .btn-xl.yellow { background: var(--yellow); color: var(--navy); }
+        .btn-xl:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+
+        /* --- Footer --- */
+        footer { background: var(--navy); color: var(--white); padding: 140px 5% 60px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-logo-img { height: clamp(90px, 15vw, 140px); width: auto; margin-bottom: 30px; object-fit: contain; }
+        .footer-tagline { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.5vw, 24px); color: var(--yellow); margin-bottom: 60px; display: block; opacity: 0.9; }
+        .footer-links { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 80px; }
+        .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.15em; transition: 0.3s; }
+        .footer-links a:hover { color: var(--white); transform: translateY(-5px); }
+        .copyright { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.4em; margin-top: 100px; text-transform: uppercase; }
+
+        .section-tag { display: block; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6em; color: var(--text-muted); margin-bottom: 30px; }
+
+        /* Mobile Nav */
+        .mobile-nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: var(--navy); z-index: 9999; transition: 0.7s cubic-bezier(0.23, 1, 0.32, 1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 35px; }
+        .mobile-nav.active { right: 0; }
+        .mobile-nav a { color: var(--white); text-decoration: none; font-size: 36px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
+        .mobile-toggle { display: none; cursor: pointer; flex-direction: column; gap: 7px; }
+        .mobile-toggle div { width: 28px; height: 2px; background: var(--navy); transition: 0.3s; }
+        .mobile-close { position: absolute; top: 25px; right: 5%; color: var(--white); font-size: 35px; cursor: pointer; }
+
+        @media (max-width: 1024px) {
+            .story-grid { grid-template-columns: 1fr; gap: 60px; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-item { grid-column: span 12 !important; }
+        }
+        @media (max-width: 768px) {
+            nav { height: 75px; }
+            .nav-links, .nav-actions .btn-premium-nav { display: none; }
+            .mobile-toggle { display: flex; }
+            section { padding: 120px 5%; }
+            .about-hero { height: 75vh; }
+            .hero-title { font-size: 110px; }
+            .kinetic-legacy h2 { font-size: 130px; }
+            .mv-box { padding: 100px 8%; }
+            .huge-phone { font-size: clamp(35px, 12vw, 85px); margin: 40px 0; }
+            .btn-xl { padding: 18px 60px; font-size: 20px; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scroll-progress"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <a href="index.html" class="nav-logo-container">
+            <img src="https://i.postimg.cc/k5RqxX47/image.png" alt="Pal Garments Logo" class="nav-logo-img">
+            <span class="nav-logo-text">PAL GARMENTS</span>
+        </a>
+        <div class="nav-links">
+            <a href="about.html" style="color: var(--yellow)">About Legacy</a>
+            <a href="index.html#schools">Partner Schools</a>
+            <a href="index.html#why-pal">Products</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="tel:+9194150XXXXX" class="btn-premium-nav">Enquire Bulk</a>
+            <div class="mobile-toggle" id="menu-btn">
+                <div></div><div></div><div></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobile-menu">
+        <div class="mobile-close" id="menu-close">✕</div>
+        <a href="about.html" onclick="toggleMenu()">About Legacy</a>
+        <a href="index.html#schools" onclick="toggleMenu()">Partner Schools</a>
+        <a href="index.html#why-pal" onclick="toggleMenu()">Products</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
+        <a href="tel:+9194150XXXXX" style="color: var(--yellow)">Call Now</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="reveal">
+            <h1 class="hero-title">SINCE 1956</h1>
+            <p class="hero-subtitle">Generations of students, one standard of quality.</p>
+        </div>
+    </section>
+
+    <!-- The Foundation Story -->
+    <section class="story-section container">
+        <div class="story-grid">
+            <div class="story-header reveal">
+                <span class="section-tag">Established 1956</span>
+                <h2>Symbol of <br>Trust and <br>Excellence</h2>
+            </div>
+            <div class="story-text">
+                <p class="reveal stagger-1">Founded in 1956, Pal Garments stands as a symbol of trust, legacy, and manufacturing excellence in Gonda. For over six decades, we have built our reputation on quality workmanship, ethical practices, and long-term relationships.</p>
+                <div class="story-accent reveal stagger-2">
+                    "Every stitch tells a story of quality."
+                </div>
+                <p class="reveal stagger-3" style="margin-top: 40px;">Unlike ordinary stores, we do not rely on third-party production. Our in-house unit allows us to maintain accountability in every single piece we deliver to schools and families.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Tri-Model Pillars -->
+    <section class="pillars-section">
+        <div class="container">
+            <span class="reveal section-tag">Our Architecture</span>
+            <h2 class="reveal stagger-1" style="font-size: clamp(50px, 8vw, 110px); color: var(--navy); margin-bottom: 20px;">The Tri-Model Edge</h2>
+            
+            <div class="pillars-grid">
+                <div class="pillar-card reveal stagger-1">
+                    <h3>01. <br>Manufacturer</h3>
+                    <p>Operating under brand <b>Palji</b>, we manage fabric sourcing to precision stitching in-house for complete quality control.</p>
+                    <div class="pillar-line"></div>
+                </div>
+                <div class="pillar-card reveal stagger-2">
+                    <h3>02. <br>Wholesale</h3>
+                    <p>Supplying bulk school wear to institutions with professional standards, timely delivery, and year-round stock availability.</p>
+                    <div class="pillar-line"></div>
+                </div>
+                <div class="pillar-card reveal stagger-3">
+                    <h3>03. <br>Retailer</h3>
+                    <p>Direct service ensures accurate measurements and perfect fits for generations of students across Gonda.</p>
+                    <div class="pillar-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Built for Generations (Bento Grid) -->
+    <section class="audience-bento container">
+        <span class="reveal section-tag">Our Ecosystem</span>
+        <h2 class="reveal stagger-1" style="font-size: clamp(50px, 8vw, 100px); color: var(--navy); margin-bottom: 20px;">Built For Generations</h2>
+        
+        <div class="bento-grid">
+            <div class="bento-item bento-1 reveal">
+                <div>
+                    <h4>Schools & Partners</h4>
+                    <p>Premier partnerships with educational institutions requiring consistent manufacturing support and bulk supply.</p>
+                </div>
+                <div class="school-tags">
+                    <span class="school-badge">FATIMA</span>
+                    <span class="school-badge">SUNBEAM</span>
+                    <span class="school-badge">ROSEWOOD</span>
+                    <span class="school-badge">RAGHUKUL</span>
+                    <span class="school-badge">ALHUDA</span>
+                    <span class="school-badge highlight">100+ MORE</span>
+                </div>
+            </div>
+            
+            <div class="bento-item bento-2 reveal stagger-1">
+                <h4>Parents</h4>
+                <p>Families seeking peace of mind with durable, comfortable fabrics and accurate fitting for growing kids.</p>
+            </div>
+            
+            <div class="bento-item bento-3 reveal stagger-2">
+                <h4>Students</h4>
+                <p>Academic wear, sports uniforms, and premium winter wear blazers engineered for maximum comfort.</p>
+            </div>
+            
+            <div class="bento-item bento-4 reveal stagger-3">
+                <h4>Bulk Buyers</h4>
+                <p>Wholesale partners seeking the guarantee of manufacturing-backed consistency and professional timelines.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- KINETIC LEGACY SECTION -->
+    <section class="kinetic-legacy">
+        <div class="marquee-bg">PALJI QUALITY · GONDA PRIDE · ESTABLISHED 1956 · PALJI QUALITY · GONDA PRIDE · ESTABLISHED 1956</div>
+        <div class="proud-label reveal">we are</div>
+        <h2 class="reveal stagger-1">PROUDLY<br>SINCE 1956</h2>
+        <p class="reveal stagger-2">Combining decades of legacy with modern production standards to remain Gonda’s most trusted complete school uniform destination.</p>
+    </section>
+
+    <!-- Mission & Vision -->
+    <div class="mission-vision">
+        <div class="mv-box mission reveal">
+            <span class="section-tag" style="color:var(--yellow)">The Commitment</span>
+            <h3>MISSION</h3>
+            <p>To provide high-quality, durable school uniforms at fair prices, while maintaining complete control over manufacturing and retail service under one roof.</p>
+        </div>
+        <div class="mv-box vision reveal stagger-1">
+            <span class="section-tag" style="color:var(--navy)">The Future</span>
+            <h3>VISION</h3>
+            <p>To become India's most organized uniform brand, combining decades of legacy with modern systems and future-ready digital ordering.</p>
+        </div>
+    </div>
+
+    <!-- HUGE CONTACT SECTION (ENQUIRE BULK) - Added to match Home Page -->
+    <section id="contact" class="huge-contact">
+        <span class="section-tag reveal">Direct Line</span>
+        <h2 class="reveal stagger-1">Need assistance? Call us.</h2>
+        <a href="tel:+9194150XXXXX" class="huge-phone reveal stagger-2">+91 94150 XXXXX</a>
+        <div class="reveal stagger-3">
+            <a href="#" class="btn-xl yellow">Connect WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="reveal">
+            <img src="https://i.postimg.cc/k5RqxX47/image.png" alt="Footer Logo" class="footer-logo-img">
+        </div>
+        <span class="footer-tagline reveal stagger-1">Where Every Stitch Tells a Story of Quality</span>
+        <div class="footer-links reveal stagger-2">
+            <a href="index.html">Home</a><a href="about.html">About</a><a href="index.html#schools">Schools</a><a href="index.html#why-pal">Products</a><a href="#contact">Contact</a>
+        </div>
+        <div class="copyright">© 2026 PAL GARMENTS · GONDA · ALL RIGHTS RESERVED</div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        function toggleMenu() { mobileMenu.classList.toggle('active'); }
+        menuBtn.addEventListener('click', toggleMenu);
+        menuClose.addEventListener('click', toggleMenu);
+
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement, b = document.body, st = 'scrollTop', sh = 'scrollHeight';
+            const percent = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
+            document.getElementById('scroll-progress').style.width = percent + "%";
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
